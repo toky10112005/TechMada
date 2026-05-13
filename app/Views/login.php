@@ -288,19 +288,22 @@ code,pre,.mono{font-family:'DM Mono',monospace}
     <p class="auth-sub">Entrez vos identifiants pour accéder à votre espace.</p>
 
     <!-- Flashdata CI4 — erreur -->
+    <?php if (isset($error) || session()->getFlashdata('error')): ?>
     <div class="flash flash-error">
       <i class="bi bi-exclamation-circle-fill"></i>
-      Identifiants incorrects. Veuillez réessayer.
+      <?= esc($error ?? session()->getFlashdata('error')) ?>
     </div>
+    <?php endif ?>
 
-    <form>
+    <form action="/user/login" method="post">
+      <?= csrf_field() ?>
       <div class="f-group">
         <label class="f-label">Adresse email</label>
-        <input type="email" class="f-input" placeholder="vous@techmada.mg" value="employe@techmada.mg"/>
+        <input type="email" name="email" class="f-input" placeholder="vous@techmada.mg" value="<?= esc(old('email', 'employe@techmada.mg')) ?>" required/>
       </div>
       <div class="f-group">
         <label class="f-label">Mot de passe</label>
-        <input type="password" class="f-input" placeholder="••••••••" value="emp123"/>
+        <input type="password" name="password" class="f-input" placeholder="••••••••" value="<?= esc(old('password', 'emp123')) ?>" required/>
       </div>
       <button type="submit" class="btn-primary" style="margin-top:.5rem">
         Se connecter <i class="bi bi-arrow-right-short"></i>
@@ -313,118 +316,7 @@ code,pre,.mono{font-family:'DM Mono',monospace}
 </section>
 
 
-<!-- ╔══════════════════════════════════════════════════════════════╗
-     ║  PAGE 2 — DASHBOARD EMPLOYÉ  (employe/dashboard.php)        ║
-     ╚══════════════════════════════════════════════════════════════╝ -->
-<section id="page-dashboard-employe" style="margin-top:3rem">
-<div class="app-wrap">
 
-  <!-- SIDEBAR EMPLOYÉ -->
-  <aside class="sidebar">
-    <div class="sidebar-brand">
-      <div class="sidebar-logo-icon"><i class="bi bi-briefcase"></i></div>
-      <div class="sidebar-brand-name">TechMada RH<span>Espace employé</span></div>
-    </div>
-    <div class="sidebar-section">Menu</div>
-    <ul class="sidebar-nav">
-      <li><a href="#page-dashboard-employe" class="active"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
-      <li><a href="#page-form-conge"><i class="bi bi-plus-circle"></i> Nouvelle demande</a></li>
-      <li>
-        <a href="#page-mes-conges">
-          <i class="bi bi-calendar3"></i> Mes demandes
-          <span class="nav-badge alert">2</span>
-        </a>
-      </li>
-      <li><a href="#page-profil-employe"><i class="bi bi-person"></i> Mon profil</a></li>
-    </ul>
-    <div class="sidebar-user">
-      <div class="s-user-row">
-        <div class="avatar av-green">SR</div>
-        <div>
-          <div class="user-name">Soa Rakoto</div>
-          <div class="user-role">Employé · IT</div>
-        </div>
-        <a href="#page-login" style="margin-left:auto;color:rgba(255,255,255,.25);font-size:1.1rem" title="Déconnexion"><i class="bi bi-box-arrow-right"></i></a>
-      </div>
-    </div>
-  </aside>
-
-  <div class="main">
-    <div class="topbar">
-      <div>
-        <div class="topbar-title">Tableau de bord</div>
-        <div class="topbar-breadcrumb">Accueil</div>
-      </div>
-      <div class="topbar-actions">
-        <a href="#page-form-conge" class="btn-forest" style="padding:7px 14px;font-size:.82rem">
-          <i class="bi bi-plus-lg"></i> Nouvelle demande
-        </a>
-      </div>
-    </div>
-
-    <div class="content">
-
-      <!-- Flash succès -->
-      <div class="flash flash-success">
-        <i class="bi bi-check-circle-fill"></i>
-        Votre demande de congé a bien été soumise. Elle est en attente de validation.
-      </div>
-
-      <!-- Métriques -->
-      <div class="metrics">
-        <div class="metric">
-          <div class="metric-top"><div class="metric-icon mi-amber"><i class="bi bi-hourglass-split"></i></div></div>
-          <div class="metric-val">2</div>
-          <div class="metric-label">En attente</div>
-        </div>
-        <div class="metric">
-          <div class="metric-top"><div class="metric-icon mi-green"><i class="bi bi-check-circle"></i></div></div>
-          <div class="metric-val">5</div>
-          <div class="metric-label">Approuvées</div>
-        </div>
-        <div class="metric">
-          <div class="metric-top"><div class="metric-icon mi-forest"><i class="bi bi-calendar-check"></i></div></div>
-          <div class="metric-val">18</div>
-          <div class="metric-label">Jours restants</div>
-          <div class="metric-sub">sur 30 cette année</div>
-        </div>
-        <div class="metric">
-          <div class="metric-top"><div class="metric-icon mi-red"><i class="bi bi-x-circle"></i></div></div>
-          <div class="metric-val">1</div>
-          <div class="metric-label">Refusée</div>
-        </div>
-      </div>
-
-      <!-- Soldes de congés -->
-      <div class="data-card">
-        <div class="data-card-head"><h3>Mes soldes de congés — 2025</h3></div>
-        <div style="padding:1rem 1.25rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem">
-          <div class="solde-card" style="margin:0">
-            <div class="solde-header">
-              <span class="solde-type">Congé annuel</span>
-              <span class="solde-nums"><strong>18</strong> / 30 j</span>
-            </div>
-            <div class="solde-bar"><div class="solde-fill" style="width:60%"></div></div>
-            <div class="solde-label">18 jours restants · 12 pris</div>
-          </div>
-          <div class="solde-card" style="margin:0">
-            <div class="solde-header">
-              <span class="solde-type">Congé maladie</span>
-              <span class="solde-nums"><strong>8</strong> / 10 j</span>
-            </div>
-            <div class="solde-bar"><div class="solde-fill" style="width:80%"></div></div>
-            <div class="solde-label">8 jours restants · 2 pris</div>
-          </div>
-          <div class="solde-card" style="margin:0">
-            <div class="solde-header">
-              <span class="solde-type">Congé spécial</span>
-              <span class="solde-nums"><strong>1</strong> / 5 j</span>
-            </div>
-            <div class="solde-bar"><div class="solde-fill warn" style="width:20%"></div></div>
-            <div class="solde-label">1 jour restant · 4 pris</div>
-          </div>
-        </div>
-      </div>
 
       <!-- Dernières demandes -->
       <div class="data-card">
@@ -723,200 +615,7 @@ code,pre,.mono{font-family:'DM Mono',monospace}
 </section>
 
 
-<!-- ╔══════════════════════════════════════════════════════════════╗
-     ║  PAGE 5 — LISTE RH (VALIDATION)  (rh/index.php)             ║
-     ╚══════════════════════════════════════════════════════════════╝ -->
-<section id="page-liste-rh" style="margin-top:3rem">
-<div class="app-wrap">
 
-  <aside class="sidebar">
-    <div class="sidebar-brand">
-      <div class="sidebar-logo-icon"><i class="bi bi-person-check"></i></div>
-      <div class="sidebar-brand-name">TechMada RH<span>Espace responsable</span></div>
-    </div>
-    <div class="sidebar-section">Menu</div>
-    <ul class="sidebar-nav">
-      <li><a href="#page-dashboard-rh"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
-      <li>
-        <a href="#page-liste-rh" class="active">
-          <i class="bi bi-inbox"></i> Demandes à traiter
-          <span class="nav-badge alert">4</span>
-        </a>
-      </li>
-      <li><a href="#page-liste-rh"><i class="bi bi-archive"></i> Historique</a></li>
-      <li><a href="#page-liste-rh"><i class="bi bi-people"></i> Soldes employés</a></li>
-    </ul>
-    <div class="sidebar-user">
-      <div class="s-user-row">
-        <div class="avatar av-blue">MR</div>
-        <div><div class="user-name">Marie Rabe</div><div class="user-role">Responsable RH</div></div>
-        <a href="#page-login" style="margin-left:auto;color:rgba(255,255,255,.25);font-size:1.1rem"><i class="bi bi-box-arrow-right"></i></a>
-      </div>
-    </div>
-  </aside>
-
-  <div class="main">
-    <div class="topbar">
-      <div>
-        <div class="topbar-title">Demandes à traiter</div>
-        <div class="topbar-breadcrumb"><a href="#page-dashboard-rh">Accueil</a> <i class="bi bi-chevron-right" style="font-size:.6rem"></i> Demandes</div>
-      </div>
-      <div class="topbar-actions">
-        <span style="font-size:.8rem;color:var(--muted);background:var(--warn-bg);border:1px solid var(--warn-br);border-radius:6px;padding:5px 10px;display:flex;align-items:center;gap:5px;color:var(--warn)">
-          <i class="bi bi-hourglass-split"></i> 4 en attente
-        </span>
-      </div>
-    </div>
-
-    <div class="content">
-
-      <!-- Flash -->
-      <div class="flash flash-success">
-        <i class="bi bi-check-circle-fill"></i>
-        Demande de Soa Rakoto approuvée. Son solde a été mis à jour automatiquement.
-      </div>
-
-      <!-- Filtre -->
-      <div style="display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap">
-        <button style="padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;border:1.5px solid var(--forest);background:var(--forest);color:var(--white);cursor:pointer">Tous (8)</button>
-        <button style="padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer">En attente (4)</button>
-        <button style="padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer">Approuvées (3)</button>
-        <button style="padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer">Refusées (1)</button>
-        <select class="f-select" style="font-size:.8rem;padding:6px 10px;width:auto;margin-left:auto">
-          <option>Tous les départements</option>
-          <option>IT</option>
-          <option>Finance</option>
-          <option>Marketing</option>
-        </select>
-      </div>
-
-      <div class="data-card">
-        <div class="data-card-head"><h3>Toutes les demandes</h3></div>
-        <table class="tbl">
-          <thead>
-            <tr><th>Employé</th><th>Type</th><th>Période</th><th>Durée</th><th>Solde dispo</th><th>Statut</th><th>Actions</th></tr>
-          </thead>
-          <tbody>
-            <!-- En attente — actions disponibles -->
-            <tr>
-              <td>
-                <div class="profile-row">
-                  <div class="avatar av-green" style="width:32px;height:32px;font-size:.7rem">SR</div>
-                  <div class="profile-info">
-                    <div class="pname">Soa Rakoto</div>
-                    <div class="pdept">IT · 23 juin → 27 juin</div>
-                  </div>
-                </div>
-              </td>
-              <td><span class="type-badge t-annuel">Annuel</span></td>
-              <td class="td-muted" style="font-size:.8rem">23/06 – 27/06/2025</td>
-              <td class="td-mono">5 j</td>
-              <td>
-                <span style="font-family:'DM Mono',monospace;font-size:.82rem;color:var(--success);font-weight:500">18 j</span>
-                <span style="font-size:.72rem;color:var(--muted)"> dispo</span>
-              </td>
-              <td><span class="statut s-attente">en attente</span></td>
-              <td>
-                <div class="action-btns">
-                  <button class="btn-sm btn-approve"><i class="bi bi-check-lg"></i> Approuver</button>
-                  <button class="btn-sm btn-refuse"><i class="bi bi-x-lg"></i> Refuser</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="profile-row">
-                  <div class="avatar av-amber" style="width:32px;height:32px;font-size:.7rem">TF</div>
-                  <div class="profile-info">
-                    <div class="pname">Tsiry Fidy</div>
-                    <div class="pdept">Finance</div>
-                  </div>
-                </div>
-              </td>
-              <td><span class="type-badge t-maladie">Maladie</span></td>
-              <td class="td-muted" style="font-size:.8rem">18/06 – 19/06/2025</td>
-              <td class="td-mono">2 j</td>
-              <td>
-                <span style="font-family:'DM Mono',monospace;font-size:.82rem;color:var(--warn);font-weight:500">1 j</span>
-                <span style="font-size:.72rem;color:var(--danger)"> ⚠ insuffisant</span>
-              </td>
-              <td><span class="statut s-attente">en attente</span></td>
-              <td>
-                <div class="action-btns">
-                  <button class="btn-sm btn-approve" disabled style="opacity:.4;cursor:not-allowed"><i class="bi bi-check-lg"></i> Approuver</button>
-                  <button class="btn-sm btn-refuse"><i class="bi bi-x-lg"></i> Refuser</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="profile-row">
-                  <div class="avatar av-blue" style="width:32px;height:32px;font-size:.7rem">HA</div>
-                  <div class="profile-info">
-                    <div class="pname">Haja Andria</div>
-                    <div class="pdept">Marketing</div>
-                  </div>
-                </div>
-              </td>
-              <td><span class="type-badge t-annuel">Annuel</span></td>
-              <td class="td-muted" style="font-size:.8rem">30/06 – 04/07/2025</td>
-              <td class="td-mono">5 j</td>
-              <td>
-                <span style="font-family:'DM Mono',monospace;font-size:.82rem;color:var(--success);font-weight:500">22 j</span>
-                <span style="font-size:.72rem;color:var(--muted)"> dispo</span>
-              </td>
-              <td><span class="statut s-attente">en attente</span></td>
-              <td>
-                <div class="action-btns">
-                  <button class="btn-sm btn-approve"><i class="bi bi-check-lg"></i> Approuver</button>
-                  <button class="btn-sm btn-refuse"><i class="bi bi-x-lg"></i> Refuser</button>
-                </div>
-              </td>
-            </tr>
-            <!-- Déjà traitées -->
-            <tr>
-              <td>
-                <div class="profile-row">
-                  <div class="avatar av-green" style="width:32px;height:32px;font-size:.7rem">SR</div>
-                  <div class="profile-info"><div class="pname">Soa Rakoto</div><div class="pdept">IT</div></div>
-                </div>
-              </td>
-              <td><span class="type-badge t-maladie">Maladie</span></td>
-              <td class="td-muted" style="font-size:.8rem">02/06 – 03/06/2025</td>
-              <td class="td-mono">2 j</td>
-              <td><span style="font-family:'DM Mono',monospace;font-size:.82rem;color:var(--muted)">—</span></td>
-              <td><span class="statut s-approuvee">approuvée</span></td>
-              <td><span class="td-muted" style="font-size:.75rem">Traité par Marie R.</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Modal refus (inline, visible ici pour le template) -->
-      <div style="margin-top:1.5rem">
-        <div class="form-section" style="border-color:var(--danger-br);background:var(--danger-bg)">
-          <h3 style="color:var(--danger)"><i class="bi bi-x-circle"></i> Confirmer le refus — Tsiry Fidy</h3>
-          <div style="font-size:.875rem;color:var(--ink);margin-bottom:1rem">
-            Demande de <strong>2 jours</strong> du 18 au 19 juin 2025 · Type : Maladie<br>
-            <span style="font-size:.8rem;color:var(--danger)"><i class="bi bi-exclamation-triangle"></i> Solde insuffisant : 1 jour disponible, 2 demandés.</span>
-          </div>
-          <div class="f-group">
-            <label class="f-label">Commentaire pour l'employé (optionnel)</label>
-            <textarea class="f-textarea" placeholder="Ex : Solde insuffisant, veuillez contacter les RH pour un congé sans solde.">Solde insuffisant. Solde maladie restant : 1 jour.</textarea>
-          </div>
-          <div class="form-actions">
-            <button class="btn-sm btn-refuse" style="padding:9px 16px;font-size:.875rem"><i class="bi bi-x-lg"></i> Confirmer le refus</button>
-            <button class="btn-secondary"><i class="bi bi-arrow-left"></i> Annuler</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="footer-app"><i class="bi bi-c-circle"></i> 2025 <span>TechMada RH</span></div>
-  </div>
-
-</div>
-</section>
 
 
 <!-- ╔══════════════════════════════════════════════════════════════╗

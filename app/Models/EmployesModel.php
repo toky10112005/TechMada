@@ -36,4 +36,29 @@ class EmployesModel extends Model
             ->orderBy('employes.id', 'ASC')
             ->findAll();
     }
+
+    public function findByEmail(string $email): ?array
+    {
+        $employe = $this->where('email', $email)->first();
+
+        return $employe ?: null;
+    }
+
+    public function authenticate(string $email, string $password): ?array
+    {
+        $employe = $this->findByEmail($email);
+
+        if (! $employe) {
+            return null;
+        }
+
+        $isValidPassword = password_verify($password, (string) $employe['password'])
+            || hash_equals((string) $employe['password'], $password);
+
+        if (! $isValidPassword) {
+            return null;
+        }
+
+        return $employe;
+    }
 }

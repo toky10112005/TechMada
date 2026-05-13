@@ -11,21 +11,20 @@ use App\Controllers\EtudiantController;
 // $routes->get('/etudiant/(:num)','EtudiantController::show/$1');
 
 $routes->get('/', 'Employe::index');
-$routes->get('/user/login', 'User::index');
-$routes->get('/redirectadmin', 'User::redirectadmin');
-$routes->post('/user/login', 'User::login');
-$routes->get('/user/db-test', 'User::dbTest');
-$routes->get('/user/redirectinscription', 'User::redirectinscription');
-$routes->post('/user/inscription', 'User::page');
-$routes->post('/user/put', 'User::put');
+$routes->get('/login', 'Employe::index');
+$routes->post('/login', 'Employe::login');
+$routes->post('/user/login', 'Employe::login');
+$routes->get('/logout', 'Employe::logout');
 
+// Routes protégées par rôle
+$routes->get('/dashboard/admin', 'Employe::dashboardAdmin', ['filter' => 'role:admin']);
+$routes->get('/dashboard/rh', 'Employe::dashboardRh', ['filter' => 'role:rh']);
+$routes->get('/dashboard/user', 'Employe::dashboardUser', ['filter' => 'role:user']);
 
-$routes->get('/admin/login', 'Admin::loginPage');
-$routes->post('/admin/login', 'Admin::loginAdmin');
-$routes->get('/admin/insert', 'Admin::insertredirect');
-$routes->post('/admin/put', 'Admin::put');
+// Liste des employés (publique pour test)
+$routes->get('/employes', 'Employe::index');
 
+$routes->group('admin',['filter' =>'role:admin'],function($routes){
+    
+});
 
-$routes->group('admin', ['filter' => 'role:admin'], function($routes) {
-    // Autres routes réservées aux administrateurs
-    });
