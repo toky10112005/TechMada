@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard Utilisateur</title>
+    <title>Dashboard Admin</title>
     <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+        <style>
 /* ═══════════════════════════════════════════
    TOKENS
 ═══════════════════════════════════════════ */
@@ -248,7 +248,7 @@ code,pre,.mono{font-family:'DM Mono',monospace}
 <body class="bg-light">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <span class="navbar-brand">TechMada - Utilisateur</span>
+        <span class="navbar-brand">TechMada - Admin</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -261,45 +261,38 @@ code,pre,.mono{font-family:'DM Mono',monospace}
         </div>
     </div>
 </nav>
-<main class="container py-5">
-    <div class="alert alert-warning" role="alert">
-        <h4 class="alert-heading">Bienvenue Utilisateur!</h4>
-        <p>Vous êtes connecté(e) en tant qu'utilisateur standard. Vous pouvez gérer vos demandes de congés et consulter vos informations.</p>
-        <hr>
-        <p class="mb-0">Vos permissions: Consultation de profil, Demande de congés, Historique personnel.</p>
-    </div>
 <!-- ╔══════════════════════════════════════════════════════════════╗
-     ║  PAGE 2 — DASHBOARD EMPLOYÉ  (employe/dashboard.php)        ║
+     ║  PAGE 6 — DASHBOARD ADMIN  (admin/dashboard.php)            ║
      ╚══════════════════════════════════════════════════════════════╝ -->
-<section id="page-dashboard-employe" style="margin-top:3rem">
+<section id="page-dashboard-admin" style="margin-top:3rem">
 <div class="app-wrap">
 
-  <!-- SIDEBAR EMPLOYÉ -->
   <aside class="sidebar">
     <div class="sidebar-brand">
-      <div class="sidebar-logo-icon"><i class="bi bi-briefcase"></i></div>
-      <div class="sidebar-brand-name">TechMada RH<span>Espace employé</span></div>
+      <div class="sidebar-logo-icon" style="background:var(--ink);border:1px solid rgba(255,255,255,.15)"><i class="bi bi-shield-check" style="color:var(--leaf)"></i></div>
+      <div class="sidebar-brand-name">TechMada RH
+        <span>Administration</span>
+      </div>
     </div>
-    <div class="sidebar-section">Menu</div>
-    <ul class="sidebar-nav">
-      <li><a href="#page-dashboard-employe" class="active"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
-      <li><a href="#page-form-conge"><i class="bi bi-plus-circle"></i> Nouvelle demande</a></li>
+    <div class="sidebar-section">Gestion</div>
+      <ul class="sidebar-nav">
+      <li><a href="#page-dashboard-admin" class="active"><i class="bi bi-speedometer2"></i> Vue d'ensemble</a></li>
       <li>
-        <a href="#page-mes-conges">
-          <i class="bi bi-calendar3"></i> Mes demandes
-          <span class="nav-badge alert">2</span>
+        <a href="#page-liste-rh">
+          <i class="bi bi-inbox"></i> Toutes les demandes
+          <span class="nav-badge alert"><?= isset($totalRequests) ? (int)$totalRequests : '0' ?></span>
         </a>
       </li>
-      <li><a href="#page-profil-employe"><i class="bi bi-person"></i> Mon profil</a></li>
+      <li><a href="#page-admin-employes"><i class="bi bi-people"></i> Employés</a></li>
+      <li><a href="#page-admin-employes"><i class="bi bi-building"></i> Départements</a></li>
+      <li><a href="#page-admin-employes"><i class="bi bi-tags"></i> Types de congé</a></li>
+      <li><a href="#page-admin-employes"><i class="bi bi-sliders"></i> Soldes annuels</a></li>
     </ul>
     <div class="sidebar-user">
       <div class="s-user-row">
-        <div class="avatar av-green">SR</div>
-        <div>
-          <div class="user-name">Soa Rakoto</div>
-          <div class="user-role">Employé · IT</div>
-        </div>
-        <a href="#page-login" style="margin-left:auto;color:rgba(255,255,255,.25);font-size:1.1rem" title="Déconnexion"><i class="bi bi-box-arrow-right"></i></a>
+        <div class="avatar" style="background:#5a2d82;width:32px;height:32px;font-size:.7rem">AD</div>
+        <div><div class="user-name">Administrateur</div><div class="user-role">Admin système</div></div>
+        <a href="#page-login" style="margin-left:auto;color:rgba(255,255,255,.25);font-size:1.1rem"><i class="bi bi-box-arrow-right"></i></a>
       </div>
     </div>
   </aside>
@@ -307,74 +300,114 @@ code,pre,.mono{font-family:'DM Mono',monospace}
   <div class="main">
     <div class="topbar">
       <div>
-        <div class="topbar-title">Tableau de bord</div>
-        <div class="topbar-breadcrumb">Accueil</div>
+        <div class="topbar-title">Vue d'ensemble</div>
+        <div class="topbar-breadcrumb">Administration</div>
       </div>
       <div class="topbar-actions">
-        <a href="/employes/nouvelledemande" class="btn-forest" style="padding:7px 14px;font-size:.82rem">
-          <i class="bi bi-plus-lg"></i> Nouvelle demande
-        </a>
+        <a href="#page-admin-employes" class="btn-forest" style="padding:7px 14px;font-size:.82rem"><i class="bi bi-person-plus"></i> Ajouter un employé</a>
       </div>
     </div>
 
     <div class="content">
 
-      <!-- Flash succès -->
-      <div class="flash flash-success">
-        <i class="bi bi-check-circle-fill"></i>
-        Votre demande de congé a bien été soumise. Elle est en attente de validation.
-      </div>
-
-      <!-- Métriques -->
+      <!-- Métriques admin -->
       <div class="metrics">
         <div class="metric">
+          <div class="metric-top"><div class="metric-icon mi-forest"><i class="bi bi-people"></i></div></div>
+            <div class="metric-val"><?= isset($totalEmployees) ? (int)$totalEmployees : '0' ?></div>
+            <div class="metric-label">Employés actifs</div>
+            <div class="metric-sub up"><i class="bi bi-arrow-up-short"></i> +2 ce mois</div>
+        </div>
+        <div class="metric">
           <div class="metric-top"><div class="metric-icon mi-amber"><i class="bi bi-hourglass-split"></i></div></div>
-          <div class="metric-val"><?= esc($conge_summary['counts']['en_attente'] ?? 0) ?></div>
-          <div class="metric-label">En attente</div>
+          <div class="metric-val"><?= isset($pending) ? (int)$pending : '0' ?></div>
+          <div class="metric-label">Demandes en attente</div>
         </div>
         <div class="metric">
-          <div class="metric-top"><div class="metric-icon mi-green"><i class="bi bi-check-circle"></i></div></div>
-          <div class="metric-val"><?= esc($conge_summary['counts']['accepte'] ?? 0) ?></div>
-          <div class="metric-label">Approuvées</div>
+          <div class="metric-top"><div class="metric-icon mi-green"><i class="bi bi-calendar-check"></i></div></div>
+          <div class="metric-val"><?= isset($approvedThisMonth) ? (int)$approvedThisMonth : '0' ?></div>
+          <div class="metric-label">Approuvées ce mois</div>
+          <div class="metric-sub up"><i class="bi bi-arrow-up-short"></i> +6 vs mois dernier</div>
         </div>
         <div class="metric">
-          <div class="metric-top"><div class="metric-icon mi-forest"><i class="bi bi-calendar-check"></i></div></div>
-          <div class="metric-val"><?= esc($conge_summary['remaining_total'] ?? 0) ?></div>
-          <div class="metric-label">Jours restants</div>
-          <div class="metric-sub">sur <?= esc((int) ($conge_summary['remaining_total'] + array_sum(array_column($conge_summary['soldes_detail'] ?? [], 'pris')))) ?> cette année</div>
+          <div class="metric-top"><div class="metric-icon mi-blue"><i class="bi bi-building"></i></div></div>
+          <div class="metric-val"><?= isset($departments) ? (int)$departments : '0' ?></div>
+          <div class="metric-label">Départements</div>
         </div>
         <div class="metric">
-          <div class="metric-top"><div class="metric-icon mi-red"><i class="bi bi-x-circle"></i></div></div>
-          <div class="metric-val"><?= esc($conge_summary['counts']['refuse'] ?? 0) ?></div>
-          <div class="metric-label">Refusée</div>
+          <div class="metric-top"><div class="metric-icon mi-red"><i class="bi bi-person-slash"></i></div></div>
+          <div class="metric-val"><?= isset($absents) ? count($absents) : 0 ?></div>
+          <div class="metric-label">Absents aujourd'hui</div>
         </div>
       </div>
 
-      <!-- Soldes de congés -->
-      <div class="data-card">
-        <div class="data-card-head"><h3>Mes soldes de congés — 2025</h3></div>
-        <div style="padding:1rem 1.25rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem">
-          <?php if (! empty($conge_summary['soldes_detail'])): ?>
-            <?php foreach ($conge_summary['soldes_detail'] as $sd): ?>
-              <div class="solde-card" style="margin:0">
-                <div class="solde-header">
-                  <span class="solde-type">Type #<?= esc($sd['type_conge_id']) ?></span>
-                  <span class="solde-nums"><strong><?= esc($sd['remaining']) ?></strong> / <?= esc($sd['attribues']) ?> j</span>
-                </div>
-                <?php
-                  $pct = ($sd['attribues'] > 0) ? round(($sd['remaining'] / $sd['attribues']) * 100) : 0;
-                  $class = $pct < 25 ? 'danger' : ($pct < 60 ? 'warn' : '');
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:1.5rem;align-items:start">
+
+        <!-- Demandes récentes -->
+        <div class="data-card" style="margin:0">
+          <div class="data-card-head">
+            <h3>Demandes récentes</h3>
+            <a href="#page-liste-rh" style="font-size:.8rem;color:var(--forest);text-decoration:none">Tout voir →</a>
+          </div>
+          <table class="tbl">
+            <thead>
+              <tr><th>Employé</th><th>Type</th><th>Durée</th><th>Statut</th></tr>
+            </thead>
+            <tbody>
+              <?php if (! empty($recent)): ?>
+                <?php foreach ($recent as $row):
+                  $c = $row['conge'];
+                  $emp = $row['employe'];
+                  $status = $c['statut'] ?? 'en_attente';
+                  $statusClass = $status === 'en_attente' ? 's-attente' : ($status === 'approuvee' ? 's-approuvee' : ($status === 'refusee' ? 's-refusee' : 's-annulee'));
                 ?>
-                <div class="solde-bar"><div class="solde-fill <?= $class ?>" style="width:<?= esc($pct) ?>%"></div></div>
-                <div class="solde-label"><?= esc($sd['remaining']) ?> jours restants · <?= esc($sd['pris']) ?> pris</div>
-              </div>
-            <?php endforeach; ?>
-          <?php else: ?>
-            <div class="solde-card" style="margin:0">Aucun solde trouvé pour cette année.</div>
-          <?php endif; ?>
+                <tr>
+                  <td><div style="display:flex;align-items:center;gap:7px"><div class="avatar av-green" style="width:28px;height:28px;font-size:.62rem"><?= isset($emp['nom']) ? strtoupper(substr($emp['nom'],0,1) . substr($emp['prenom'] ?? '',0,1)) : '??' ?></div><span class="td-name" style="font-size:.84rem"><?= isset($emp['prenom']) ? esc($emp['prenom'].' '.$emp['nom']) : 'Inconnu' ?></span></div></td>
+                  <td><span class="type-badge"><?= esc($c['type_conge_id'] ?? '—') ?></span></td>
+                  <td class="td-mono"><?= (int)$c['nb_jours'] ?> j</td>
+                  <td><span class="statut <?= $statusClass ?>"><?= esc($status) ?></span></td>
+                </tr>
+                <?php endforeach; ?>
+              <?php else: ?>
+                <tr><td colspan="4" class="empty">Aucune demande récente.</td></tr>
+              <?php endif; ?>
+            </tbody>
+          </table>
         </div>
+
+        <!-- Absents du jour + soldes critiques -->
+        <div style="display:flex;flex-direction:column;gap:1rem">
+          <div class="data-card" style="margin:0">
+            <div class="data-card-head"><h3><i class="bi bi-person-slash" style="color:var(--muted);margin-right:5px"></i>Absents aujourd'hui</h3></div>
+            <div style="padding:.75rem 1.1rem;display:flex;flex-direction:column;gap:.6rem">
+              <div style="display:flex;align-items:center;gap:8px">
+                <div class="avatar av-green" style="width:30px;height:30px;font-size:.65rem">SR</div>
+                <div><div style="font-size:.83rem;font-weight:500;color:var(--ink)">Soa Rakoto</div><div style="font-size:.72rem;color:var(--muted)">Congé annuel · retour 28/06</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div class="avatar" style="width:30px;height:30px;font-size:.65rem;background:#993556">NR</div>
+                <div><div style="font-size:.83rem;font-weight:500;color:var(--ink)">Noro Ramarao</div><div style="font-size:.72rem;color:var(--muted)">Maladie · retour 17/06</div></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div class="avatar av-amber" style="width:30px;height:30px;font-size:.65rem">KF</div>
+                <div><div style="font-size:.83rem;font-weight:500;color:var(--ink)">Ketaka Feno</div><div style="font-size:.72rem;color:var(--muted)">Congé spécial · retour 16/06</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="flash flash-warn" style="margin:0">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <span style="font-size:.8rem">2 employés ont un solde critique (≤ 2 jours). <a href="#" style="color:var(--warn);font-weight:500">Voir les soldes →</a></span>
+          </div>
+        </div>
+
       </div>
-</main>
+
+    </div>
+    <div class="footer-app"><i class="bi bi-c-circle"></i> 2025 <span>TechMada RH</span></div>
+  </div>
+
+</div>
+</section>
 <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -281,12 +281,12 @@ code,pre,.mono{font-family:'DM Mono',monospace}
       <div class="sidebar-brand-name">TechMada RH<span>Espace responsable</span></div>
     </div>
     <div class="sidebar-section">Menu</div>
-    <ul class="sidebar-nav">
+      <ul class="sidebar-nav">
       <li><a href="#page-dashboard-rh"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
       <li>
         <a href="#page-liste-rh" class="active">
           <i class="bi bi-inbox"></i> Demandes à traiter
-          <span class="nav-badge alert">4</span>
+          <span class="nav-badge alert"><?= isset($pending) ? (int)$pending : '0' ?></span>
         </a>
       </li>
       <li><a href="#page-liste-rh"><i class="bi bi-archive"></i> Historique</a></li>
@@ -309,7 +309,7 @@ code,pre,.mono{font-family:'DM Mono',monospace}
       </div>
       <div class="topbar-actions">
         <span style="font-size:.8rem;color:var(--muted);background:var(--warn-bg);border:1px solid var(--warn-br);border-radius:6px;padding:5px 10px;display:flex;align-items:center;gap:5px;color:var(--warn)">
-          <i class="bi bi-hourglass-split"></i> 4 en attente
+          <i class="bi bi-hourglass-split"></i> <?= isset($pending) ? (int)$pending : '0' ?> en attente
         </span>
       </div>
     </div>
@@ -324,10 +324,10 @@ code,pre,.mono{font-family:'DM Mono',monospace}
 
       <!-- Filtre -->
       <div style="display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap">
-        <button style="padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;border:1.5px solid var(--forest);background:var(--forest);color:var(--white);cursor:pointer">Tous (8)</button>
-        <button style="padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer">En attente (4)</button>
-        <button style="padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer">Approuvées (3)</button>
-        <button style="padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer">Refusées (1)</button>
+        <button style="padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;border:1.5px solid var(--forest);background:var(--forest);color:var(--white);cursor:pointer">Tous (<?= isset($total) ? (int)$total : '0' ?>)</button>
+        <button style="padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer">En attente (<?= isset($pending) ? (int)$pending : '0' ?>)</button>
+        <button style="padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer">Approuvées (<?= isset($approved) ? (int)$approved : '0' ?>)</button>
+        <button style="padding:6px 14px;border-radius:20px;font-size:.8rem;font-weight:500;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer">Refusées (<?= isset($refused) ? (int)$refused : '0' ?>)</button>
         <select class="f-select" style="font-size:.8rem;padding:6px 10px;width:auto;margin-left:auto">
           <option>Tous les départements</option>
           <option>IT</option>
@@ -343,97 +343,49 @@ code,pre,.mono{font-family:'DM Mono',monospace}
             <tr><th>Employé</th><th>Type</th><th>Période</th><th>Durée</th><th>Solde dispo</th><th>Statut</th><th>Actions</th></tr>
           </thead>
           <tbody>
-            <!-- En attente — actions disponibles -->
-            <tr>
-              <td>
-                <div class="profile-row">
-                  <div class="avatar av-green" style="width:32px;height:32px;font-size:.7rem">SR</div>
-                  <div class="profile-info">
-                    <div class="pname">Soa Rakoto</div>
-                    <div class="pdept">IT · 23 juin → 27 juin</div>
-                  </div>
-                </div>
-              </td>
-              <td><span class="type-badge t-annuel">Annuel</span></td>
-              <td class="td-muted" style="font-size:.8rem">23/06 – 27/06/2025</td>
-              <td class="td-mono">5 j</td>
-              <td>
-                <span style="font-family:'DM Mono',monospace;font-size:.82rem;color:var(--success);font-weight:500">18 j</span>
-                <span style="font-size:.72rem;color:var(--muted)"> dispo</span>
-              </td>
-              <td><span class="statut s-attente">en attente</span></td>
-              <td>
-                <div class="action-btns">
-                  <button class="btn-sm btn-approve"><i class="bi bi-check-lg"></i> Approuver</button>
-                  <button class="btn-sm btn-refuse"><i class="bi bi-x-lg"></i> Refuser</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="profile-row">
-                  <div class="avatar av-amber" style="width:32px;height:32px;font-size:.7rem">TF</div>
-                  <div class="profile-info">
-                    <div class="pname">Tsiry Fidy</div>
-                    <div class="pdept">Finance</div>
-                  </div>
-                </div>
-              </td>
-              <td><span class="type-badge t-maladie">Maladie</span></td>
-              <td class="td-muted" style="font-size:.8rem">18/06 – 19/06/2025</td>
-              <td class="td-mono">2 j</td>
-              <td>
-                <span style="font-family:'DM Mono',monospace;font-size:.82rem;color:var(--warn);font-weight:500">1 j</span>
-                <span style="font-size:.72rem;color:var(--danger)"> ⚠ insuffisant</span>
-              </td>
-              <td><span class="statut s-attente">en attente</span></td>
-              <td>
-                <div class="action-btns">
-                  <button class="btn-sm btn-approve" disabled style="opacity:.4;cursor:not-allowed"><i class="bi bi-check-lg"></i> Approuver</button>
-                  <button class="btn-sm btn-refuse"><i class="bi bi-x-lg"></i> Refuser</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="profile-row">
-                  <div class="avatar av-blue" style="width:32px;height:32px;font-size:.7rem">HA</div>
-                  <div class="profile-info">
-                    <div class="pname">Haja Andria</div>
-                    <div class="pdept">Marketing</div>
-                  </div>
-                </div>
-              </td>
-              <td><span class="type-badge t-annuel">Annuel</span></td>
-              <td class="td-muted" style="font-size:.8rem">30/06 – 04/07/2025</td>
-              <td class="td-mono">5 j</td>
-              <td>
-                <span style="font-family:'DM Mono',monospace;font-size:.82rem;color:var(--success);font-weight:500">22 j</span>
-                <span style="font-size:.72rem;color:var(--muted)"> dispo</span>
-              </td>
-              <td><span class="statut s-attente">en attente</span></td>
-              <td>
-                <div class="action-btns">
-                  <button class="btn-sm btn-approve"><i class="bi bi-check-lg"></i> Approuver</button>
-                  <button class="btn-sm btn-refuse"><i class="bi bi-x-lg"></i> Refuser</button>
-                </div>
-              </td>
-            </tr>
-            <!-- Déjà traitées -->
-            <tr>
-              <td>
-                <div class="profile-row">
-                  <div class="avatar av-green" style="width:32px;height:32px;font-size:.7rem">SR</div>
-                  <div class="profile-info"><div class="pname">Soa Rakoto</div><div class="pdept">IT</div></div>
-                </div>
-              </td>
-              <td><span class="type-badge t-maladie">Maladie</span></td>
-              <td class="td-muted" style="font-size:.8rem">02/06 – 03/06/2025</td>
-              <td class="td-mono">2 j</td>
-              <td><span style="font-family:'DM Mono',monospace;font-size:.82rem;color:var(--muted)">—</span></td>
-              <td><span class="statut s-approuvee">approuvée</span></td>
-              <td><span class="td-muted" style="font-size:.75rem">Traité par Marie R.</span></td>
-            </tr>
+            <?php if (! empty($requests)): ?>
+              <?php foreach ($requests as $row):
+                $c = $row['conge'];
+                $emp = $row['employe'];
+                $type = $row['type'];
+                $remaining = $row['remaining'];
+                $status = $c['statut'] ?? 'en_attente';
+                $statusClass = $status === 'en_attente' ? 's-attente' : ($status === 'approuvee' ? 's-approuvee' : ($status === 'refusee' ? 's-refusee' : 's-annulee'));
+                $dates = date('d/m', strtotime($c['date_debut'])) . ' – ' . date('d/m/Y', strtotime($c['date_fin']));
+              ?>
+                <tr>
+                  <td>
+                    <div class="profile-row">
+                      <div class="avatar av-green" style="width:32px;height:32px;font-size:.7rem"><?= isset($emp['nom']) ? strtoupper(substr($emp['nom'],0,1) . substr($emp['prenom'] ?? '',0,1)) : '??' ?></div>
+                      <div class="profile-info">
+                        <div class="pname"><?= isset($emp['prenom']) ? esc($emp['prenom'] . ' ' . $emp['nom']) : 'Inconnu' ?></div>
+                        <div class="pdept"><?= isset($emp['departement_id']) ? 'Dept #' . esc((string)$emp['departement_id']) : '' ?> · <?= esc($dates) ?></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="type-badge"><?= esc($type['libelle'] ?? '—') ?></span></td>
+                  <td class="td-muted" style="font-size:.8rem"><?= esc($dates) ?></td>
+                  <td class="td-mono"><?= (int)$c['nb_jours'] ?> j</td>
+                  <td>
+                    <?php if ($remaining === null): ?>
+                      <span style="font-family:'DM Mono',monospace;font-size:.82rem;color:var(--muted)">—</span>
+                    <?php else: ?>
+                      <span style="font-family:'DM Mono',monospace;font-size:.82rem;color:<?= $remaining <= 0 ? 'var(--danger)' : ($remaining < (int)$c['nb_jours'] ? 'var(--warn)' : 'var(--success)') ?>;font-weight:500"><?= esc((string)$remaining) ?> j</span>
+                      <span style="font-size:.72rem;color:var(--muted)"> dispo</span>
+                    <?php endif; ?>
+                  </td>
+                  <td><span class="statut <?= $statusClass ?>"><?= esc($status) ?></span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="btn-sm btn-approve" <?= $status !== 'en_attente' ? 'disabled style="opacity:.4;cursor:not-allowed"' : '' ?>><i class="bi bi-check-lg"></i> Approuver</button>
+                      <button class="btn-sm btn-refuse"><i class="bi bi-x-lg"></i> Refuser</button>
+                    </div>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <tr><td colspan="7" class="empty"><p>Aucune demande trouvée.</p></td></tr>
+            <?php endif; ?>
           </tbody>
         </table>
       </div>

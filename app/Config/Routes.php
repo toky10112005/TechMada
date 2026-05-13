@@ -16,6 +16,10 @@ $routes->post('/login', 'Employe::login');
 $routes->post('/user/login', 'Employe::login');
 $routes->get('/logout', 'Employe::logout');
 
+// Congés
+$routes->post('/conge/submit', 'Conge::submit');
+$routes->get('/conges/my', 'Conge::myRequests');
+
 // Routes protégées par rôle
 $routes->get('/dashboard/admin', 'Employe::dashboardAdmin', ['filter' => 'role:admin']);
 $routes->get('/dashboard/rh', 'Employe::dashboardRh', ['filter' => 'role:rh']);
@@ -24,7 +28,7 @@ $routes->get('/dashboard/user', 'Employe::dashboardUser', ['filter' => 'role:use
 // Liste des employés (publique pour test)
 $routes->get('/employes', 'Employe::index');
 
-$routes->group('admin',['filter' =>'role:admin'],function($routes){
-    
+$routes->group('employes', ['filter' => 'role:user'], function($routes){
+    $routes->get('nouvelledemande', 'Conge::create');
 });
 

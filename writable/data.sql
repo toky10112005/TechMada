@@ -64,4 +64,8 @@ INSERT OR IGNORE INTO employes (nom, prenom, email, password, role, departement_
 ('Jane', 'Smith', 'jane.smith@gmail.com', 'jane', 'user', 2, '2024-01-01', 1),
 ('Alice', 'Johnson', 'alice.johnson@gmail.com', 'alice', 'user', 3, '2024-01-01', 1);
 
+INSERT OR IGNORE INTO type_conges (libelle, jours_annuels, detuctible) VALUES
+('Congé payé', 25, 0),
+('Congé maladie', 10, 0),
+('Congé sans solde', 0, 1);
 
