@@ -1,0 +1,91 @@
+:root {
+  --food-primary: #2e7d32;
+  --food-primary-dark: #1b5e20;
+  --food-primary-light: #4caf50;
+  --food-secondary: #81c784;
+  --food-accent: #ff9800;
+  --food-background: #f1f8e9;
+  --food-card-bg: #ffffff;
+}
+
+body {
+  background-color: var(--food-background);
+  color: #212529;
+}
+
+.navbar-dark.bg-dark {
+  background: linear-gradient(135deg, var(--food-primary-dark), var(--food-primary)) !important;
+}
+
+.navbar-brand {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+.card {
+  border: 1px solid var(--food-secondary);
+  box-shadow: 0 2px 8px rgba(46, 125, 50, 0.1);
+}
+
+.card-header {
+  background-color: var(--food-secondary);
+  color: #fff;
+  border-bottom: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--food-primary), var(--food-primary-light));
+  border-color: var(--food-primary);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--food-primary-dark), var(--food-primary));
+  border-color: var(--food-primary-dark);
+}
+
+.btn-outline-primary {
+  color: var(--food-primary);
+  border-color: var(--food-primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--food-primary);
+  border-color: var(--food-primary);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--food-primary);
+  box-shadow: 0 0 0 0.2rem rgba(46, 125, 50, 0.25);
+}
+
+.objectif-card {
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.objectif-card:hover {
+  border-color: var(--food-secondary);
+  background-color: #e8f5e9;
+  transform: translateY(-2px);
+}
+
+.objectif-card input[type="radio"]:checked + .form-check-label {
+  color: var(--food-primary-dark);
+  font-weight: 600;
+}
+
+.objectif-card input[type="radio"] {
+  accent-color: var(--food-primary);
+}
+
+.alert-success {
+  background-color: #e8f5e9;
+  border-color: var(--food-primary-light);
+  color: var(--food-primary-dark);
+}
+
+.rounded-3 {
+  border-radius: 0.5rem !important;
+}

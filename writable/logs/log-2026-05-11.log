@@ -1,0 +1,188 @@
+DEBUG - 2026-05-11 04:55:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 04:55:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-11 04:55:37 --> CSRF token verified.
+DEBUG - 2026-05-11 04:55:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-05-11 04:55:37 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /var/www/html/codeigniter/alimentation/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /var/www/html/codeigniter/alimentation/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /var/www/html/codeigniter/alimentation/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /var/www/html/codeigniter/alimentation/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /var/www/html/codeigniter/alimentation/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/html/codeigniter/alimentation/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /var/www/html/codeigniter/alimentation/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /var/www/html/codeigniter/alimentation/app/Models/GenreModel.php(17): CodeIgniter\BaseModel->first()
+#7 /var/www/html/codeigniter/alimentation/app/Controllers/User.php(83): App\Models\GenreModel->getByLabel()
+#8 /var/www/html/codeigniter/alimentation/system/CodeIgniter.php(951): App\Controllers\User->page()
+#9 /var/www/html/codeigniter/alimentation/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/html/codeigniter/alimentation/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/html/codeigniter/alimentation/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /var/www/html/codeigniter/alimentation/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /var/www/html/codeigniter/alimentation/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /var/www/html/codeigniter/alimentation/system/rewrite.php(44): require_once('...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in /var/www/html/codeigniter/alimentation/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /var/www/html/codeigniter/alimentation/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /var/www/html/codeigniter/alimentation/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /var/www/html/codeigniter/alimentation/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /var/www/html/codeigniter/alimentation/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#4 /var/www/html/codeigniter/alimentation/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /var/www/html/codeigniter/alimentation/app/Models/GenreModel.php(17): CodeIgniter\BaseModel->first()
+#6 /var/www/html/codeigniter/alimentation/app/Controllers/User.php(83): App\Models\GenreModel->getByLabel()
+#7 /var/www/html/codeigniter/alimentation/system/CodeIgniter.php(951): App\Controllers\User->page()
+#8 /var/www/html/codeigniter/alimentation/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /var/www/html/codeigniter/alimentation/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /var/www/html/codeigniter/alimentation/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /var/www/html/codeigniter/alimentation/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /var/www/html/codeigniter/alimentation/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 /var/www/html/codeigniter/alimentation/system/rewrite.php(44): require_once('...')
+#14 {main}
+CRITICAL - 2026-05-11 04:55:37 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: NO)
+[Method: POST, Route: user/inscription]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/GenreModel.php(17): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Controllers/User.php(83): App\Models\GenreModel->getByLabel()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\User->page()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/var/www/html/codeigniter/alimentation/public/index.php')
+DEBUG - 2026-05-11 04:56:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 04:56:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-11 04:56:21 --> CSRF token verified.
+DEBUG - 2026-05-11 04:56:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-05-11 04:56:21 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /var/www/html/codeigniter/alimentation/system/Database/MySQLi/Connection.php:201
+Stack trace:
+#0 /var/www/html/codeigniter/alimentation/system/Database/MySQLi/Connection.php(201): mysqli->real_connect()
+#1 /var/www/html/codeigniter/alimentation/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#2 /var/www/html/codeigniter/alimentation/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#3 /var/www/html/codeigniter/alimentation/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/html/codeigniter/alimentation/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#5 /var/www/html/codeigniter/alimentation/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#6 /var/www/html/codeigniter/alimentation/app/Models/GenreModel.php(17): CodeIgniter\BaseModel->first()
+#7 /var/www/html/codeigniter/alimentation/app/Controllers/User.php(83): App\Models\GenreModel->getByLabel()
+#8 /var/www/html/codeigniter/alimentation/system/CodeIgniter.php(951): App\Controllers\User->page()
+#9 /var/www/html/codeigniter/alimentation/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/html/codeigniter/alimentation/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/html/codeigniter/alimentation/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /var/www/html/codeigniter/alimentation/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /var/www/html/codeigniter/alimentation/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /var/www/html/codeigniter/alimentation/system/rewrite.php(44): require_once('...')
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in /var/www/html/codeigniter/alimentation/system/Database/MySQLi/Connection.php:231
+Stack trace:
+#0 /var/www/html/codeigniter/alimentation/system/Database/BaseConnection.php(555): CodeIgniter\Database\MySQLi\Connection->connect()
+#1 /var/www/html/codeigniter/alimentation/system/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+#2 /var/www/html/codeigniter/alimentation/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#3 /var/www/html/codeigniter/alimentation/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+#4 /var/www/html/codeigniter/alimentation/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
+#5 /var/www/html/codeigniter/alimentation/app/Models/GenreModel.php(17): CodeIgniter\BaseModel->first()
+#6 /var/www/html/codeigniter/alimentation/app/Controllers/User.php(83): App\Models\GenreModel->getByLabel()
+#7 /var/www/html/codeigniter/alimentation/system/CodeIgniter.php(951): App\Controllers\User->page()
+#8 /var/www/html/codeigniter/alimentation/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /var/www/html/codeigniter/alimentation/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /var/www/html/codeigniter/alimentation/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /var/www/html/codeigniter/alimentation/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /var/www/html/codeigniter/alimentation/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 /var/www/html/codeigniter/alimentation/system/rewrite.php(44): require_once('...')
+#14 {main}
+CRITICAL - 2026-05-11 04:56:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: NO)
+[Method: POST, Route: user/inscription]
+in SYSTEMPATH/Database/BaseConnection.php on line 606.
+ 1 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+ 3 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
+ 5 APPPATH/Models/GenreModel.php(17): CodeIgniter\BaseModel->first()
+ 6 APPPATH/Controllers/User.php(83): App\Models\GenreModel->getByLabel()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\User->page()
+ 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/var/www/html/codeigniter/alimentation/public/index.php')
+DEBUG - 2026-05-11 04:58:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 04:58:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-11 04:58:51 --> CSRF token verified.
+DEBUG - 2026-05-11 04:58:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-11 04:59:05 --> CSRF token verified.
+DEBUG - 2026-05-11 04:59:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 04:59:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 04:59:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 04:59:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 04:59:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 04:59:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:00:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:01:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:01:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:01:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:01:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:01:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:01:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:01:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:01:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:01:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:01:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:01:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:01:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:02:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:02:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:16:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 05:16:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:21:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-11 07:21:49 --> CSRF token verified.
+DEBUG - 2026-05-11 07:21:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:21:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:21:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:21:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-11 07:22:18 --> CSRF token verified.
+DEBUG - 2026-05-11 07:22:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:22:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:23:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:23:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:23:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:23:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:24:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:24:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:24:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-11 07:24:09 --> CSRF token verified.
+DEBUG - 2026-05-11 07:24:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:24:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:24:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:24:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:24:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:24:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:24:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 07:24:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 11:19:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-11 11:19:49 --> CSRF token verified.
+DEBUG - 2026-05-11 11:19:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 11:20:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-05-11 11:20:37 --> CSRF token verified.
+DEBUG - 2026-05-11 11:20:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-05-11 11:20:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
