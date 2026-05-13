@@ -6,70 +6,110 @@ use CodeIgniter\Model;
 
 class UserModel extends Model
 {
-    protected $table = 'users';
-    protected $primaryKey = 'id';
+    protected $table            = 'employe';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType = 'array';
-    protected $allowedFields = ['nom', 'email', 'mot_de_passe', 'id_genre', 'id_role', 'is_gold', 'solde_portefeuille'];
-
-    protected $validationRules = [
-        'nom' => 'required|min_length[2]|max_length[255]',
-        'email' => 'required|valid_email|is_unique[users.email]',
-        'mot_de_passe' => 'required|min_length[6]',
-        'id_genre' => 'required|integer',
-        'id_role' => 'required|integer',
+    protected $returnType       = 'array';
+    protected $useSoftDeletes   = false;
+    protected $protectFields    = true;
+    protected $allowedFields    = [
+        'nom',
+        'prenom',
+        'email',
+        'password',
+        'role',
+        'departement_id',
+        'date_embauche',
+        'actif'
     ];
 
-    public function authenticateCredentials(string $email, string $motDePasse)
+    protected $useTimestamps = true;
+    protected $dateFormat    = 'datetime';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+
+    /**
+     * Authentifier un utilisateur par email et mot de passe
+     */
+    public function authenticate($email, $password)
     {
-        $user = $this->where('email', $email)->first();
+        $user = $this->where('email', $email)
+                     ->where('actif', 1)
+                     ->first();
 
         if (!$user) {
-            return "email not found";
+            return null;
         }
 
-        if (!password_verify($motDePasse, $user['mot_de_passe'])) {
-            return "incorrect password";
+        // Vérifier le mot de passe
+        if (!password_verify($password, $user['password'])) {
+            return null;
         }
 
         return $user;
     }
 
-    public function createUser(string $nom, string $email, string $motDePasse, int $genreId, int $roleId): ?array
+    /**
+     * Récupérer un utilisateur par email
+     */
+    public function getUserByEmail($email)
     {
-        $saved = $this->save([
-            'nom' => $nom,
-            'email' => $email,
-            'mot_de_passe' => password_hash($motDePasse, PASSWORD_DEFAULT),
-            'id_genre' => $genreId,
-            'id_role' => $roleId,
-        ]);
-
-        if (!$saved) {
-            return null;
-        }
-
-        return $this->where('email', $email)->first();
+        return $this->where('email', $email)
+                    ->where('actif', 1)
+                    ->first();
     }
 
-    public function calculeIMC(int $taille, int $poids): float
+    /**
+     * Récupérer un utilisateur par ID
+     */
+    public function getUserById($id)
     {
-        return $poids / (($taille / 100) ** 2);
+        return $this->find($id);
     }
 
-    public function calculeMB(float $poids, float $tailleCm, int $age, string $genreLibelle): float
+    /**
+     * Récupérer tous les utilisateurs actifs
+     */
+    public function getActiveUsers()
     {
-        $base = (10 * $poids) + (6.25 * $tailleCm) - (5 * $age);
-        if (stripos($genreLibelle, 'homme') !== false) {
-            return $base + 5;
-        }
-
-        return $base - 161;
+        return $this->where('actif', 1)
+                    ->findAll();
     }
 
-    public function calculeMaintenance(float $mb): float
+    /**
+     * Récupérer les utilisateurs par rôle
+     */
+    public function getUsersByRole($role)
     {
-        return $mb * 1.2;
+        return $this->where('role', $role)
+                    ->where('actif', 1)
+                    ->findAll();
     }
 
+    /**
+     * Vérifier si un utilisateur est un Admin
+     */
+    public function isAdmin($userId)
+    {
+        $user = $this->find($userId);
+        return $user && $user['role'] === 'Admin';
+    }
+
+    /**
+     * Vérifier si un utilisateur est un RH
+     */
+    public function isRH($userId)
+    {
+        $user = $this->find($userId);
+        return $user && $user['role'] === 'RH';
+    }
+
+    /**
+     * Vérifier si un utilisateur est un Employe
+     */
+    public function isEmploye($userId)
+    {
+        $user = $this->find($userId);
+        return $user && $user['role'] === 'Employe';
+    }
 }

@@ -6,17 +6,37 @@ use App\Controllers\EtudiantController;
 /**
  * @var RouteCollection $routes
  */
-// $routes->get('/', 'Home::index'); 
-// $routes->get('/', 'EtudiantController::index');
-// $routes->get('/etudiant/(:num)','EtudiantController::show/$1');
 
-$routes->get('/', 'User::index');
+// ═══════════════════════════════════════════════════════════════════════════
+// ROUTES D'AUTHENTIFICATION - Gestion des congés CI4
+// ═══════════════════════════════════════════════════════════════════════════
+
+// Route de connexion - sans authentification
+$routes->get('/login', 'Auth::login', ['as' => 'auth.login']);
+$routes->post('/authenticate', 'Auth::authenticate', ['as' => 'auth.authenticate']);
+
+// Route de déconnexion
+$routes->get('/logout', 'Auth::logout', ['as' => 'auth.logout']);
+
+// Dashboard principal - protégé par AuthFilter
+$routes->get('/dashboard', 'Auth::dashboard', ['filter' => 'auth', 'as' => 'auth.dashboard']);
+
+// Redirection de la page d'accueil vers le login
+$routes->get('/', static function () {
+    if (session()->has('user_id')) {
+        return redirect()->to('/dashboard');
+    }
+    return redirect()->to('/login');
+});
+
+// ═══════════════════════════════════════════════════════════════════════════
+// ROUTES EXISTANTES (Garder la compatibilité)
+// ═══════════════════════════════════════════════════════════════════════════
 $routes->get('/redirectadmin', 'User::redirectadmin');
 $routes->post('/user/login', 'User::login');
 $routes->get('/user/redirectinscription', 'User::redirectinscription');
 $routes->post('/user/inscription', 'User::page');
 $routes->post('/user/put', 'User::put');
-
 
 $routes->get('/admin/login', 'Admin::loginPage');
 $routes->post('/admin/login', 'Admin::loginAdmin');
@@ -24,7 +44,6 @@ $routes->get('/admin/insert', 'Admin::insertredirect');
 $routes->post('/admin/put', 'Admin::put');
 
 $routes->get('/object/(:num)', 'Regime::objectif/$1');
-
 $routes->get('/objectif', 'Regime::objectif');
 $routes->get('/retourRegimes', 'Regime::retourRegimes');
 $routes->get('/regime/export-pdf', 'Regime::exportPdf');
@@ -41,4 +60,5 @@ $routes->get('/acheterGold/(:num)', 'AchatGold::achat/$1');
 
 $routes->group('admin', ['filter' => 'role:admin'], function($routes) {
     // Autres routes réservées aux administrateurs
-    });
+});
+

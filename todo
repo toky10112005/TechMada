@@ -1,0 +1,26 @@
+- Gestion de demande de congé <CODEIGNITER>
+    - Connexion (middleware)sur un seul champ pour les 3 roles mais identifiée par leurs données:
+        - Admin (gestion compète du système)
+        - Employe (role par default a l'inscription)
+        - RH (responsable , valide les demandes de son equipe)
+- Creer base SQL pour tester la connexion (Admin/Employe/RH)
+en utilisant ces tables :
+    . employe : 
+    id (PK)
+    nom
+    prenom
+    email (UNIQUE)
+    password
+    role
+    departement_id
+    date_embauche
+    actif(0/1)
+
+    . departement :
+    id (PK)
+    nom
+    description
+    
+**En utilisant exactement ce template 
+
+
