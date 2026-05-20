@@ -18,20 +18,41 @@ class Employe extends BaseController
     {
         $session = session();
         $user = $session->get('username');
+        // Si pas connecté -> login
+        if (! $user) {
+            return redirect()->to('/login');
+        }
 
-        // Si utilisateur est connecté, affiche la liste des employés
-        // if ($user) {
-        //     $data = [
-        //         'title' => 'Liste des employes',
-        //         'employes' => $this->employesModel->getEmployesList(),
-        //         'totalEmployes' => $this->employesModel->countAllResults(),
-        //     ];
+        // Si utilisateur standard -> afficher ses demandes (employes/index remplacée par 'mes demandes')
+        if (isset($user['role']) && $user['role'] === 'user') {
+            $congeModel = new \App\Models\CongeModel();
+            $typeModel = new \App\Models\TypeCongeModel();
 
-        //     return view('employes/index', $data);
-        // }
+            $conges = $congeModel->getByEmployee((int) $user['id']);
 
-        // Sinon affiche le login
-        return view('login');
+            $typesRaw = $typeModel->getAll();
+            $types = [];
+            foreach ($typesRaw as $t) {
+                $types[(int) $t['id']] = $t['libelle'] ?? '';
+            }
+
+            return view('employes/index', [
+                'title' => 'Mes demandes',
+                'user' => $user,
+                'conges' => $conges,
+                'types' => $types,
+                'totalRequests' => count($conges),
+            ]);
+        }
+
+        // Pour les autres rôles (admin/rh) on affiche la liste des employés
+        $data = [
+            'title' => 'Liste des employes',
+            'employes' => $this->employesModel->getEmployesList(),
+            'totalEmployes' => $this->employesModel->countAllResults(),
+        ];
+
+        return view('employes/index', $data);
     }
 
     public function login()
@@ -121,6 +142,49 @@ class Employe extends BaseController
         ]);
     }
 
+    public function createEmploye()
+    {
+        $db = \Config\Database::connect();
+        $departements = $db->table('departements')->orderBy('nom')->get()->getResultArray();
+
+        return view('Admin/createEmploye', [
+            'title' => 'Créer un employé',
+            'departements' => $departements,
+        ]);
+    }
+
+    public function storeEmploye()
+    {
+        $data = [
+            'nom' => trim((string) $this->request->getPost('nom')),
+            'prenom' => trim((string) $this->request->getPost('prenom')),
+            'email' => trim((string) $this->request->getPost('email')),
+            'password' => (string) $this->request->getPost('password'),
+            'role' => (string) $this->request->getPost('role'),
+            'departement_id' => $this->request->getPost('departement_id') !== '' ? (int) $this->request->getPost('departement_id') : null,
+            'date_embauche' => $this->request->getPost('date_embauche') ?: date('Y-m-d'),
+            'actif' => $this->request->getPost('actif') !== null ? (int) $this->request->getPost('actif') : 1,
+        ];
+
+        if ($data['password'] !== '') {
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        }
+
+        if ($data['nom'] === '' || $data['prenom'] === '' || $data['email'] === '' || $this->request->getPost('password') === '') {
+            return redirect()->back()->withInput()->with('error', 'Tous les champs obligatoires doivent être remplis.');
+        }
+
+        if (! in_array($data['role'], ['admin', 'rh', 'user'], true)) {
+            return redirect()->back()->withInput()->with('error', 'Rôle invalide.');
+        }
+
+        if (! $this->employesModel->insert($data)) {
+            return redirect()->back()->withInput()->with('error', 'Impossible de créer l\'employé.');
+        }
+
+        return redirect()->to('/dashboard/admin')->with('success', 'Employé créé avec succès.');
+    }
+
     public function dashboardRh()
     {
         $congeModel = new \App\Models\CongeModel();
@@ -184,6 +248,25 @@ class Employe extends BaseController
 
         return view('dashboard/user', [
             'title' => 'Dashboard Utilisateur',
+            'user' => $user,
+            'conge_summary' => $summary,
+        ]);
+    }
+
+    public function profileUser()
+    {
+        $session = session();
+        $user = $session->get('username');
+
+        if (! $user) {
+            return redirect()->to('/login');
+        }
+
+        $congeModel = new \App\Models\CongeModel();
+        $summary = $congeModel->getSummaryByEmployee((int) $user['id']);
+
+        return view('dashboard/profil', [
+            'title' => 'Mon profil',
             'user' => $user,
             'conge_summary' => $summary,
         ]);

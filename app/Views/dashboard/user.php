@@ -262,12 +262,12 @@ code,pre,.mono{font-family:'DM Mono',monospace}
     </div>
 </nav>
 <main class="container py-5">
-    <div class="alert alert-warning" role="alert">
+    <!-- <div class="alert alert-warning" role="alert">
         <h4 class="alert-heading">Bienvenue Utilisateur!</h4>
         <p>Vous êtes connecté(e) en tant qu'utilisateur standard. Vous pouvez gérer vos demandes de congés et consulter vos informations.</p>
         <hr>
         <p class="mb-0">Vos permissions: Consultation de profil, Demande de congés, Historique personnel.</p>
-    </div>
+    </div> -->
 <!-- ╔══════════════════════════════════════════════════════════════╗
      ║  PAGE 2 — DASHBOARD EMPLOYÉ  (employe/dashboard.php)        ║
      ╚══════════════════════════════════════════════════════════════╝ -->
@@ -282,15 +282,15 @@ code,pre,.mono{font-family:'DM Mono',monospace}
     </div>
     <div class="sidebar-section">Menu</div>
     <ul class="sidebar-nav">
-      <li><a href="#page-dashboard-employe" class="active"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
-      <li><a href="#page-form-conge"><i class="bi bi-plus-circle"></i> Nouvelle demande</a></li>
+      <li><a href="/dashboard/user" class="active"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
+      <li><a href="/employes/nouvelledemande"><i class="bi bi-plus-circle"></i> Nouvelle demande</a></li>
       <li>
-        <a href="#page-mes-conges">
+        <a href="/conges/my">
           <i class="bi bi-calendar3"></i> Mes demandes
           <span class="nav-badge alert">2</span>
         </a>
       </li>
-      <li><a href="#page-profil-employe"><i class="bi bi-person"></i> Mon profil</a></li>
+      <li><a href="/dashboard/profil"><i class="bi bi-person"></i> Mon profil</a></li>
     </ul>
     <div class="sidebar-user">
       <div class="s-user-row">
@@ -299,7 +299,7 @@ code,pre,.mono{font-family:'DM Mono',monospace}
           <div class="user-name">Soa Rakoto</div>
           <div class="user-role">Employé · IT</div>
         </div>
-        <a href="#page-login" style="margin-left:auto;color:rgba(255,255,255,.25);font-size:1.1rem" title="Déconnexion"><i class="bi bi-box-arrow-right"></i></a>
+        <a href="/logout" style="margin-left:auto;color:rgba(255,255,255,.25);font-size:1.1rem" title="Déconnexion"><i class="bi bi-box-arrow-right"></i></a>
       </div>
     </div>
   </aside>

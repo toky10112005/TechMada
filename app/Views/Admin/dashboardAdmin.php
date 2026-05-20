@@ -304,7 +304,7 @@ code,pre,.mono{font-family:'DM Mono',monospace}
         <div class="topbar-breadcrumb">Administration</div>
       </div>
       <div class="topbar-actions">
-        <a href="#page-admin-employes" class="btn-forest" style="padding:7px 14px;font-size:.82rem"><i class="bi bi-person-plus"></i> Ajouter un employé</a>
+        <a href="/admin/createEmploye" class="btn-forest" style="padding:7px 14px;font-size:.82rem"><i class="bi bi-person-plus"></i> Ajouter un employé</a>
       </div>
     </div>
 
