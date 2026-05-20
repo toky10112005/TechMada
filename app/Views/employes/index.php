@@ -252,7 +252,8 @@ code,pre,.mono{font-family:'DM Mono',monospace}
             <h1 class="h3 mb-1"><?= esc($title ?? 'Liste des employes') ?></h1>
             <p class="text-muted mb-0">Total: <?= esc((string) ($totalRequests ?? $totalEmployes ?? 0)) ?> entrée(s)</p>
         </div>
-        <a href="/user/login" class="btn btn-outline-primary">Aller au test login</a>
+        <!-- <a href="/user/login" class="btn btn-outline-primary">Aller au test login</a> -->
+         <a href="/logout" class="btn btn-outline-primary">Logout</a>
     </div>
 
    <!-- ╔══════════════════════════════════════════════════════════════╗
@@ -267,7 +268,7 @@ code,pre,.mono{font-family:'DM Mono',monospace}
       <div class="sidebar-brand-name">TechMada RH<span>Espace employé</span></div>
     </div>
     <ul class="sidebar-nav" style="margin-top:1rem">
-      <li><a href="#page-dashboard-employe"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
+      <li><a href="/dashboard/user"><i class="bi bi-grid-1x2"></i> Tableau de bord</a></li>
       <li><a href="#page-form-conge"><i class="bi bi-plus-circle"></i> Nouvelle demande</a></li>
       <li><a href="#page-mes-conges" class="active"><i class="bi bi-calendar3"></i> Mes demandes</a></li>
       <li><a href="#page-profil-employe"><i class="bi bi-person"></i> Mon profil</a></li>
@@ -276,6 +277,7 @@ code,pre,.mono{font-family:'DM Mono',monospace}
       <div class="s-user-row">
         <div class="avatar av-green">SR</div>
         <div><div class="user-name">Soa Rakoto</div><div class="user-role">Employé · IT</div></div>
+        <a href="/logout" style="margin-left:auto;color:rgba(255,255,255,.25);font-size:1.1rem" title="Déconnexion"><i class="bi bi-box-arrow-right"></i></a>
       </div>
     </div>
   </aside>

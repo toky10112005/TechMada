@@ -254,6 +254,9 @@ code,pre,.mono{font-family:'DM Mono',monospace}
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a href="/employes/calendrier">Calendrier</a>
+              </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Déconnexion</a>
                 </li>

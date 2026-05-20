@@ -19,6 +19,18 @@ use CodeIgniter\Config\BaseService;
  */
 class Services extends BaseService
 {
+    /**
+     * Service Calendar
+     */
+    public static function calendar($config = [], $getShared = true)
+    {
+        if ($getShared) {
+            return static::getSharedInstance('calendar', $config);
+        }
+
+        return new \App\Libraries\Calendar($config);
+    }
+
     /*
      * public static function example($getShared = true)
      * {

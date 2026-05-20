@@ -8,7 +8,7 @@ use App\Controllers\EtudiantController;
  */
 
 $routes->get('/', 'Employe::index');
-$routes->get('/login', 'Employe::index');
+$routes->get('/login', 'Employe::showLogin');
 $routes->post('/login', 'Employe::login');
 $routes->post('/user/login', 'Employe::login');
 $routes->get('/logout', 'Employe::logout');
@@ -34,5 +34,7 @@ $routes->get('/employes', 'Employe::index');
 
 $routes->group('employes', ['filter' => 'role:user'], function($routes){
     $routes->get('nouvelledemande', 'Conge::create');
+    $routes->get('calendrier', 'Calendrier::afficher');
+    $routes->get('calendrier/(:num)/(:num)', 'Calendrier::afficher/$1/$2');
 });
 

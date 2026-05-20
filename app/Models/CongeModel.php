@@ -93,4 +93,17 @@ class CongeModel extends Model
             'soldes_detail' => $detail,
         ];
     }
+
+    /**
+     * Retourne tous les congés avec les informations de l'employé (nom, prenom)
+     *
+     * @return array
+     */
+    public function getAllWithEmployee(): array
+    {
+        return $this->select('conges.*, employes.nom, employes.prenom')
+            ->join('employes', 'employes.id = conges.employe_id', 'left')
+            ->orderBy('date_debut', 'ASC')
+            ->findAll();
+    }
 }

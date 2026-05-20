@@ -69,3 +69,6 @@ INSERT OR IGNORE INTO type_conges (libelle, jours_annuels, detuctible) VALUES
 ('Congé maladie', 10, 0),
 ('Congé sans solde', 0, 1);
 
+
+
+

@@ -55,6 +55,11 @@ class Employe extends BaseController
         return view('employes/index', $data);
     }
 
+    public function showLogin()
+    {
+        return view('login');
+    }
+
     public function login()
     {
         $email = (string) $this->request->getPost('email');
@@ -277,6 +282,11 @@ class Employe extends BaseController
         $session = session();
         $session->destroy();
 
-        return redirect()->to('/login');
+        return view('login');
+    }
+
+    public function calendrier()
+    {
+        return view('employes/calendrier');
     }
 }
